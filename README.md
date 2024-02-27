@@ -18,17 +18,10 @@ nest new ./
 yarn run start:dev
 ```
 
-- module 생성
+- module 생성 & controller 생성 & service 생성
 ```bash
 nest g module {모듈명}
-```
-
-- controller 생성
-```bash
 nest g controller {컨트롤러명} --no-spec
-```
-
-- service 생성
-```bash
 nest g service {서비스명} --no-spec
 ```
+
