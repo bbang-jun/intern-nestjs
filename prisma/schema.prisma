@@ -13,8 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model summoner {
   id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
+  region String
+  puuid  String @unique
+  gameName String
+  tagLine String
 }

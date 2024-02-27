@@ -3,7 +3,7 @@ import { FightmeggModule } from './fightmegg/fightmegg.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [FightmeggModule, ConfigModule.forRoot()],
+  imports: [FightmeggModule],
   
 })
 export class AppModule {}
