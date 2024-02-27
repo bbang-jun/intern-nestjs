@@ -25,3 +25,9 @@ nest g controller {컨트롤러명} --no-spec
 nest g service {서비스명} --no-spec
 ```
 
+- 설치한 외부 모듈 & 라이브러리
+```bash
+yarn add prisma @prisma/client
+yarn add @fightmegg/riot-api
+yarn add @nestjs/config
+```
