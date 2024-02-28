@@ -5,6 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [FightmeggModule, ScheduleModule.forRoot()],
+  providers: [],
   
 })
 export class AppModule {}

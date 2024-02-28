@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaClient } from '@prisma/client';
 import { PlatformId, RiotAPI, RiotAPITypes } from '@fightmegg/riot-api';
 
@@ -7,6 +8,7 @@ export class FightmeggService {
     private prisma: PrismaClient;
     private riotToken: string;
     private riotAPI: RiotAPI;
+    startingMatchId = "KR_6968190653"; // startingMatchId를 클래스의 속성으로 선언
 
     constructor(
         ){
@@ -122,4 +124,69 @@ export class FightmeggService {
             console.error(error);
         }
     }
+
+    // 특정 matchid를 기준으로 50개 단위로 완료한 게임 DB 저장(최대 10개) API
+    @Cron('0 */2 * * * *')
+    async getMatchStatusByScheduling() {
+        const matchIdBase = this.startingMatchId.split('_')[0];
+        let currentMatchIdNumber = parseInt(this.startingMatchId.split('_')[1]);
+        const validMatchIds = [];
+
+        console.log("strat matchId:", this.startingMatchId);
+
+        for (let i = 0; i < 50; i++) {
+            let currentMatchId = `${matchIdBase}_${currentMatchIdNumber + i}`;
+            
+            try {
+                const matchInformation = await this.riotAPI.matchV5.getMatchById({
+                    cluster: PlatformId.ASIA,
+                    matchId: currentMatchId,
+                });
+
+                if (matchInformation.info.endOfGameResult === "GameComplete") {
+                    validMatchIds.push(currentMatchId);
+                    // matchId를 CronMatchId 테이블에 저장하는 로직
+                    const existingIds = await this.prisma.cronMatchId.findMany({
+                        select: { matchId: true },
+                        orderBy: { matchId: 'asc' },
+                    });
+
+                    if (existingIds.length >= 10) {
+                        // 가장 오래된 matchId를 삭제
+                        await this.prisma.cronMatchId.delete({
+                            where: { matchId: existingIds[0].matchId },
+                        });
+                    }
+
+                    // 새로운 matchId를 추가
+                    await this.prisma.cronMatchId.create({
+                        data: { matchId: currentMatchId },
+                    });
+                }
+            } catch (error) {
+            }
+        }
+
+        // DB에 저장된 가장 최근의 matchId로 startingMatchId 갱신
+        const latestId = await this.prisma.cronMatchId.findFirst({
+            orderBy: { matchId: 'desc' },
+        });
+        if (latestId) {
+            this.startingMatchId = latestId.matchId;
+        }
+
+        console.log("new strat matchId:", this.startingMatchId);
+        // console.log(`Number of valid matchIds: ${validMatchIds.length}`);
+    }
+
+    // 1. fow.kr에서 관전 가능한 게임의 소환사 찾아서 이전 판이 최근 30분 안에 끝났는지 확인하고 puuid 알아내기
+    // ACCOUNT-V1 /riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}
+    // 2. matchid 얻어내서 가장 최근 matchid 얻기
+    // MATCH-V5 /lol/match/v5/matches/by-puuid/{puuid}/ids
+    // 3. 해당 matchid에 1씩 더해서 2분마다 끝난거 파악하기("endOfGameResult": "GameComplete")
+    // MATCH-V5 /lol/match/v5/matches/{matchId}
+    // async schedule(){
+        
+    //     this.getMatchStatusByScheduling();
+    // }
 }

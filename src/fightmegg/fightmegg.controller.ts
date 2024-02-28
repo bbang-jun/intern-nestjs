@@ -40,7 +40,6 @@ export class FightmeggController {
     ): Promise<string[]>{
         return this.fightmeggService.getMatchById(cluster, matchId);
     }
-    
 
     // 특정 소환사가 DB에 가지고 있는 경기 리스트를 반환해주는 API
     @Get('get/match-list')
@@ -48,13 +47,5 @@ export class FightmeggController {
         @Query('puuid') puuid: string
     ): Promise<string[]>{
         return this.fightmeggService.getMatchListByPuuid(puuid);
-    }
-
-    // 매분 riot에서 새로운 매치 몇개 가져오기(20~100개 정도)
-    @Get('get/new-match/per-minute')
-    getNewMatchPerMinute(
-
-    ){
-        
     }
 }

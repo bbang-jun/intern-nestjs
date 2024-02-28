@@ -26,3 +26,7 @@ model Match {
   userPuuid  String
   summoner   Summoner @relation(fields: [userPuuid], references: [puuid])
 }
+
+model CronMatchId {
+  matchId String @id
+}
