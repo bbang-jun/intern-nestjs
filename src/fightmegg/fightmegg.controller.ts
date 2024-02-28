@@ -42,7 +42,13 @@ export class FightmeggController {
     }
     
 
-    // 가지고 있는 경기 리스트 json으로 반환해주는 API
+    // 특정 소환사가 DB에 가지고 있는 경기 리스트를 반환해주는 API
+    @Get('get/match-list')
+    getMatchListByPuuid(
+        @Query('puuid') puuid: string
+    ): Promise<string[]>{
+        return this.fightmeggService.getMatchListByPuuid(puuid);
+    }
 
     // 매분 riot에서 새로운 매치 몇개 가져오기(20~100개 정도)
 }

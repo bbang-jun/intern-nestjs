@@ -95,4 +95,31 @@ export class FightmeggService {
         }
     }
 
+    async getMatchListByPuuid(puuid){
+        try{
+            const matchList = await this.prisma.summoner.findUnique({
+                where: {
+                    puuid: puuid,
+                },
+                // matches 필드를 포함하여 해당 Summoner의 모든 Match를 가져오기
+                include: {
+                    matches: true, 
+                },
+            });
+    
+            if (!matchList) {
+                console.log(`No summoner found with puuid: ${puuid}`);
+                return [];
+            }
+
+            const matchIds = matchList.matches.map(match => match.matchId);
+    
+            console.log("matchIds:", matchIds);
+
+            // 해당 Summoner가 가지고 있는 모든 matchId 반환
+            return matchIds; 
+        }catch(error){
+            console.error(error);
+        }
+    }
 }
