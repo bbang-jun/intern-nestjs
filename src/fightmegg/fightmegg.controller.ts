@@ -51,4 +51,10 @@ export class FightmeggController {
     }
 
     // 매분 riot에서 새로운 매치 몇개 가져오기(20~100개 정도)
+    @Get('get/new-match/per-minute')
+    getNewMatchPerMinute(
+
+    ){
+        
+    }
 }

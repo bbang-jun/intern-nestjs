@@ -30,6 +30,8 @@ nest g service {서비스명} --no-spec
 yarn add prisma @prisma/client
 yarn add @fightmegg/riot-api
 yarn add @nestjs/config
+yarn add @nestjs/schedule
+yarn add @types/cron
 ```
 
 - Prisma 마이그레이션
