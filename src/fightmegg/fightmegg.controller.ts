@@ -30,9 +30,6 @@ export class FightmeggController {
     ): Promise<string[]>{
         return this.fightmeggService.getIdsByPuuid(cluster, puuid, params);
     }
-    
-
-    
 
     // 어떤 경기에 참여한 소환사들의 리스트를 json으로 반환해주는 api
 

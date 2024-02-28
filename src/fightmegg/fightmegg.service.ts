@@ -53,6 +53,23 @@ export class FightmeggService {
                 params: params
             });
 
+            for(const matchId of matchIds){
+                const existingMatch = await this.prisma.match.findUnique({
+                    where: {
+                        matchId: matchId,
+                    },
+                });
+
+                // DB에 존재하지 않는 Match Id면 저장
+                if (!existingMatch) {
+                    await this.prisma.match.create({
+                        data: {
+                            matchId: matchId,
+                            userPuuid: puuid,
+                        },
+                    });
+                }   
+            }
             
             console.log("matchIds:", matchIds);
 
