@@ -22,7 +22,6 @@ export class FightmeggController {
     }
 
     // 해당 소환사의 최근 10개 매치 반환해주는 api
-    // get/riotid API를 통해 DB에 저장된 puuid로 알아서 넣어주는 방식으로 구현해보자
     @Get('get/matchid')
     getIdsByPuuid(
         @Query('cluster') cluster,

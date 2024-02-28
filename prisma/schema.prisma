@@ -13,10 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model summoner {
-  id    Int     @id @default(autoincrement())
-  region String
-  puuid  String @unique
+model Summoner {
+  puuid    String   @id @unique
+  region   String
   gameName String
-  tagLine String
+  tagLine  String
+  matches  Match[]
+}
+
+model Match {
+  matchId    String   @id
+  userPuuid  String
+  summoner   Summoner @relation(fields: [userPuuid], references: [puuid])
 }

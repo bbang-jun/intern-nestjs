@@ -31,3 +31,8 @@ yarn add prisma @prisma/client
 yarn add @fightmegg/riot-api
 yarn add @nestjs/config
 ```
+
+- Prisma 마이그레이션
+```bash
+npx prisma migrate dev --name init
+```
