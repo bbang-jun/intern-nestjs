@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Query } from '@nestjs/common';
 import { FightmeggService } from './fightmegg.service';
 import { PlatformId, RiotAPITypes } from '@fightmegg/riot-api';
+import { json } from 'stream/consumers';
 
 @Controller('fightmegg')
 export class FightmeggController {
@@ -21,6 +22,17 @@ export class FightmeggController {
     }
 
     // 해당 소환사의 최근 10개 매치 반환해주는 api
+    // get/riotid API를 통해 DB에 저장된 puuid로 알아서 넣어주는 방식으로 구현해보자
+    @Get('get/matchid')
+    getIdsByPuuid(
+        @Query('cluster') cluster,
+        @Query('puuid') puuid: string,
+        @Body() params
+    ): Promise<string[]>{
+        return this.fightmeggService.getIdsByPuuid(cluster, puuid, params);
+    }
+    
+
     
 
     // 어떤 경기에 참여한 소환사들의 리스트를 json으로 반환해주는 api

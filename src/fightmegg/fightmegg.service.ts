@@ -45,4 +45,21 @@ export class FightmeggService {
         }
     }
 
+    async getIdsByPuuid(cluster, puuid: string, params): Promise<string[]>{
+        try{
+            const matchIds: string[] = await this.riotAPI.matchV5.getIdsByPuuid({
+                cluster: cluster,
+                puuid: puuid,
+                params: params
+            });
+
+            
+            console.log("matchIds:", matchIds);
+
+            return matchIds
+        }catch(error){
+            console.error(error);
+        }
+    }
+
 }
