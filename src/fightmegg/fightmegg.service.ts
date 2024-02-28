@@ -79,4 +79,20 @@ export class FightmeggService {
         }
     }
 
+    async getMatchById(cluster, matchId){
+        try{
+            const matchInformation = await this.riotAPI.matchV5.getMatchById({
+                cluster: cluster,
+                matchId: matchId,
+            });
+
+            const participants: string[] = matchInformation.metadata.participants;
+            console.log("participants:", participants);
+            
+            return participants;
+        }catch(error){
+            console.error(error);
+        }
+    }
+
 }

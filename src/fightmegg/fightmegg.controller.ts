@@ -11,7 +11,7 @@ export class FightmeggController {
         ){}
 
     // 소환사의 puuid, summonername, riotid, tagline을 반환해주는 API
-    // localhost:3000/fightmegg/get/riotid?region=asia&gameName=빵준갓&tagLine=KR1
+    // DB에 저장
     @Get('get/riotid')
     getByRiotId(
         @Query('region') region,
@@ -22,6 +22,7 @@ export class FightmeggController {
     }
 
     // 해당 소환사의 최근 10개 매치 반환해주는 api
+    // DB에 없을 경우 matchid 저장
     @Get('get/matchid')
     getIdsByPuuid(
         @Query('cluster') cluster,
@@ -31,9 +32,17 @@ export class FightmeggController {
         return this.fightmeggService.getIdsByPuuid(cluster, puuid, params);
     }
 
-    // 어떤 경기에 참여한 소환사들의 리스트를 json으로 반환해주는 api
+    // 특정 경기에 참여한 소환사들(puuid)의 리스트를 json으로 반환해주는 API
+    @Get('get/match-summoner')
+    getMatchById(
+        @Query('cluster') cluster,
+        @Query('matchId') matchId,
+    ): Promise<string[]>{
+        return this.fightmeggService.getMatchById(cluster, matchId);
+    }
+    
 
-    // 가지고 있는 경기 리스트 json으로 반환해주는 api
+    // 가지고 있는 경기 리스트 json으로 반환해주는 API
 
     // 매분 riot에서 새로운 매치 몇개 가져오기(20~100개 정도)
 }

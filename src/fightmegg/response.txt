@@ -1,0 +1,26 @@
+// riotAPI.matchV5.getMatchById
+matchInformation: {
+  metadata: {
+    dataVersion: '2',
+    matchId: 'KR_6947385741',
+    participants: [
+      'sW0YPqLbarjzfnKxV809Eaanr4u2oKD-XRaG2iWEzY4Pmg9WiO6z6nFxdKVkxBUY68LTF4TlqfTOVw',
+      'nruw1MEG7LaPGR0N3Mdun2LDQNtBWGcztAjohuoELMQEOmmd88gyvq4YZVEIAgx5J7dUoUjlz3MODQ',
+      'q3LVwkvIIOrbXPIlCrED9_CF4kWCtWD_9CR4k873wFjKzaWnIZZFvcV7qWjLHtyxLGwtd8jBFFFteg',
+      'MjxACnInC_uXyFUy8QiSKkKChoh6zjSk1vYI6G6KQ4aJwNa1oFq3MyyKrhJvi2Dz3pq_60D81Xvisg',
+      'VxzfwJK7FHf-K8zXtsVPkfUhY99_n9IlsYdQsshDs3ezMEZFSYQMzMPRFFh1qLQLBdhW91qavQz1iQ',
+      'ZvONDjbYnkVgG02eDCKwC-YWwQ1U-Wzvlij8KVluWxe7zmirI3hmf8iE7FXgbdPyHhqjLTzMZD8Z_w',
+      'AkFrDpQexlkz3Hxn1CqkAe3-nH3A8zjh0T_DkaUF62V_9yu6FC6FiwAEQSen4s70GxVBm5zZP6qLmA',
+      'upCzm_UZNEqrdfbsfiTyPDB5RyfKdEANGjv5-MKsgvnhmJmAQpFKDvpd6D11Xuu1Xq8rVivoZV5A2w',
+      'EhNu3A18ux2RjGfT0BuuDvaWPddcU26mLIk60q4vFnyf_q0x4YjMqh5XJHcg2mq_TpF3Ni45iRM2_A',
+      'XcjufaIw_d9VBIvO8eCqnSiCOAlZ_DAuPntIRg8uLpCXfWALteiy70jngeDtLhHRfFtiBYsz9xAXiw' 
+    ]
+  },
+  info: {
+    endOfGameResult: 'GameComplete',
+    gameCreation: 1707834904853,
+    gameDuration: 2640,
+    gameEndTimestamp: 1707837678673,
+    gameId: 6947385741,
+    gameMode: 'CLASSIC',
+    gameName: 'teambuilder-match-6947385741',
